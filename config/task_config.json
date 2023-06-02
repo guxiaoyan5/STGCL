@@ -1,0 +1,64 @@
+{
+  "traffic_state_pred": {
+    "allowed_model": [
+      "STGCN",
+      "GWNET",
+      "AGCRN",
+      "TGCN",
+      "STSGCN",
+      "ASTGNN",
+      "STGCL",
+      "DCRNN"
+    ],
+    "allowed_dataset": [
+      "NYCBIKE20140409",
+      "NYCBike20160708",
+      "NYCBIKE20160809",
+      "NYCTaxi20140112",
+      "NYCTaxi20150103",
+      "NYCTAXI20160102",
+      "TAXIBJ",
+      "NYCBIKE202007-202009"
+    ],
+    "STGCN": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "GWNET": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "AGCRN": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "TGCN": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "STSGCN": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "ASTGNN": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "STGCL": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "DCRNN": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    }
+  }
+}

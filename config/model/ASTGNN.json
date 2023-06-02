@@ -1,0 +1,9 @@
+{
+  "dropout": 0,
+  "kernel_size": 3,
+  "num_layers": 3,
+  "d_model": 64,
+  "nb_head": 8,
+  "max_len": 5000,
+  "K": 3
+}

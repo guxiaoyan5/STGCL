@@ -1,0 +1,19 @@
+{
+  "dropout": 0.3,
+  "blocks": 4,
+  "layers": 2,
+  "apt_layer": true,
+  "gcn_bool": true,
+  "addaptadj": true,
+  "adjtype": "doubletransition",
+  "bidir_adj_mx": false,
+  "randomadj": true,
+  "aptonly": true,
+  "kernel_size": 2,
+  "nhid": 32,
+  "residual_channels": 32,
+  "dilation_channels": 32,
+  "skip_channels": 256,
+  "end_channels": 512
+
+}

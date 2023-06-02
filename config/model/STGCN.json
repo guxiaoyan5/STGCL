@@ -1,0 +1,20 @@
+{
+  "Ks": 3,
+  "Kt": 3,
+  "blocks": [
+    [
+      1,
+      32,
+      64
+    ],
+    [
+      64,
+      32,
+      128
+    ]
+  ],
+  "dropout": 0,
+  "graph_conv_type": "chebconv",
+  "stgcn_train_mode": "full",
+  "bidir_adj_mx": true
+}
