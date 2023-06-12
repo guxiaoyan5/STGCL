@@ -13,7 +13,6 @@
   ],
   "rho": 1,
   "bidir_adj_mx": true,
-  "batch_size": 32,
   "distance_inverse": true
 
 }
