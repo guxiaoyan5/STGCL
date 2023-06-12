@@ -33,7 +33,7 @@ def calculate_random_walk_matrix(W):
     assert W.shape[0] == W.shape[1]
 
     N = W.shape[0]
-    W = W + np.identity(N)  # 为邻居矩阵加上自连接
+    # W = W + np.identity(N)  # 为邻居矩阵加上自连接
     D = np.diag(np.sum(W, axis=1))
     sym_norm_Adj_matrix = np.dot(np.sqrt(D), W)
     sym_norm_Adj_matrix = np.dot(sym_norm_Adj_matrix, np.sqrt(D))
@@ -259,6 +259,14 @@ class GraphAttention(nn.Module):
         return self.fc(x).permute(2, 0, 1, 3)
 
 
+class GraphAttentionConv(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self):
+        pass
+
+
 class GraphGatedFusion(nn.Module):
     def __init__(self, d_model):
         super().__init__()
@@ -312,6 +320,7 @@ class SpatialAttentionScaledGCN(nn.Module):
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.Theta = nn.Linear(in_channels, out_channels, bias=False)
+        self.Theta1 = nn.Linear(out_channels, out_channels, bias=False)
         self.SAt = Spatial_Attention_layer(dropout=dropout)
 
     def forward(self, x):
@@ -330,7 +339,7 @@ class SpatialAttentionScaledGCN(nn.Module):
 
         spatial_attention = spatial_attention.reshape((-1, num_of_vertices, num_of_vertices))  # (b*T, n, n)
 
-        return F.relu(self.Theta(torch.matmul(adj.mul(spatial_attention), x)).reshape(
+        return F.relu(self.Theta1(self.Theta(torch.matmul(adj.mul(spatial_attention), x))).reshape(
             (batch_size, num_of_timesteps, num_of_vertices, self.out_channels)).transpose(1, 2))
 
 
@@ -864,12 +873,14 @@ class STGCL(AbstractTrafficStateModel):
         self.output_dim = self.data_feature.get('output_dim', 1)
         self.input_dim = self.data_feature.get("feature_dim", 1)
         self.K = config.get("K", 3)
+        self.k = config.get("k", 2)
         self.adj_mx = self.data_feature.get("adj_mx")
         self.device = config.get('device', torch.device('cpu'))
         self.adj_dtw = torch.FloatTensor(self.data_feature.get("adj_dtw")).to(self.device)
-        self.adj_SSG = torch.FloatTensor(self.adj_mx).to(self.device)
+        self.adj_SSG = torch.FloatTensor(calculate_random_walk_matrix(self.adj_mx)).to(self.device)
+        self.adj = torch.FloatTensor(
+            calculate_random_walk_matrix(self._calculate_k_order_neighbor_matrix(self.adj_mx, self.k))).to(self.device)
         self.adj_SSG = self.adj_SSG * self.adj_dtw * self.adj_SSG
-        self.adj = torch.FloatTensor(calculate_random_walk_matrix(self.adj_mx)).to(self.device)
 
         src_dense = nn.Linear(self.input_dim, self.d_model)
         trg_dense = nn.Linear(self.output_dim, self.d_model)
@@ -882,14 +893,14 @@ class STGCL(AbstractTrafficStateModel):
                                                copy.deepcopy(spatial_position))
         if not self.multiCore:
             attn_ss = MultiHeadAttentionAwareTemporalContex_q1d_k1d(self.nb_head, self.d_model, self.kernel_size,
-                                                                    dropout=self.dropout)  # encoder的trend-aware attention用一维卷积
+                                                                    dropout=self.dropout)
             attn_st = MultiHeadAttentionAwareTemporalContex_qc_k1d(self.nb_head, self.d_model, self.kernel_size,
                                                                    dropout=self.dropout)
             att_tt = MultiHeadAttentionAwareTemporalContex_qc_kc(self.nb_head, self.d_model, self.kernel_size,
-                                                                 dropout=self.dropout)  # decoder的trend-aware attention用因果卷积
+                                                                 dropout=self.dropout)
         else:
             attn_ss = MultiCoreAttentionAwareTemporalContex_q1d_k1d(self.nb_head, self.d_model, self.kernel_sizes,
-                                                                    dropout=self.dropout)  # encoder的trend-aware attention用一维卷积
+                                                                    dropout=self.dropout)
             attn_st = MultiCoreAttentionAwareTemporalContex_qc_k1d(self.nb_head, self.d_model, self.kernel_sizes,
                                                                    dropout=self.dropout)
             att_tt = MultiCoreAttentionAwareTemporalContex_qc_kc(self.nb_head, self.d_model, self.kernel_sizes,
@@ -957,3 +968,11 @@ class STGCL(AbstractTrafficStateModel):
 
     def decode(self, trg, encoder_output):
         return self.generator(self.decoder(self.decoder_embedding(trg), encoder_output))
+
+    @classmethod
+    def _calculate_k_order_neighbor_matrix(cls, adj, k):
+        adj = adj + np.eye(adj.shape[0])
+        k_adj = adj
+        for i in range(1, k):
+            k_adj = np.matmul(k_adj, adj)
+        return k_adj

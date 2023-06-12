@@ -3,12 +3,11 @@
   "kernel_size": 3,
   "kernel_sizes": [
     3,
-    5,
-    7
+    5
   ],
   "num_layers": 3,
   "d_model": 64,
-  "nb_head": 8,
+  "nb_head": 4,
   "max_len": 5000,
   "multiCore": true,
   "scale": true
