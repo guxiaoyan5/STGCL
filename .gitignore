@@ -1,5 +1,4 @@
-/data/
-data.mat
-analysis.ipynb
+data/
+analysis/
 .idea/
 script/
