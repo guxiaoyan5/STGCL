@@ -1,0 +1,8 @@
+{
+  "use_cde": true,
+  "hidden_dim": 64,
+  "hidden_hidden_dim": 64,
+  "num_layers": 3,
+  "cheb_k": 2,
+  "embed_dim": 10
+}

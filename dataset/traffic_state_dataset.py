@@ -4,6 +4,8 @@ from logging import getLogger
 
 import numpy as np
 import pandas as pd
+import torch
+import torchcde
 from fastdtw import fastdtw
 from tqdm import tqdm
 
@@ -38,6 +40,7 @@ class TrafficStateDataset(AbstractDataset):
         self.add_day_in_week = self.config.get('add_day_in_week', False)
         self.input_window = self.config.get('input_window', 12)
         self.output_window = self.config.get('output_window', 12)
+        self.use_cde = self.config.get('use_cde', False)
         self.parameters_str = \
             str(self.dataset) + '_' + str(self.input_window) + '_' + str(self.output_window) + '_' \
             + str(self.train_rate) + '_' + str(self.eval_rate) + '_' + str(self.scaler_type) + '_' \
@@ -70,6 +73,7 @@ class TrafficStateDataset(AbstractDataset):
 
         # 初始化
         self.data = None
+        self.times = None
         self.feature_name = {'X': 'float', 'y': 'float'}  # 此类的输入只有X和y
         self.adj_mx = None
         self.adj_dtw = None
@@ -223,6 +227,26 @@ class TrafficStateDataset(AbstractDataset):
         self.adj_mx = cat_data['adj_mx']
         self.adj_dtw = cat_data['adj_dtw']
         self._logger.info("adj_mx shape : " + str(self.adj_mx.shape) + ", adj_dtw shape : " + str(self.adj_dtw.shape))
+
+    def _load_dartboard(self):
+        dirs = [[0, 0], [0, 1], [1, 0], [-1, 0], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]]
+        self.adj_mx_dartboard = np.zeros((len(self.geo_ids), len(self.geo_ids), len(dirs)), dtype=np.float32)
+        for i in range(self.len_row):
+            for j in range(self.len_column):
+                index = i * self.len_column + j  # grid_id
+                for k, d in enumerate(dirs):
+                    nei_i = i + d[0]
+                    nei_j = j + d[1]
+                    if 0 <= nei_i < self.len_row and 0 <= nei_j < self.len_column:
+                        nei_index = nei_i * self.len_column + nei_j  # neighbor_grid_id
+                        self.adj_mx_dartboard[index][nei_index][k] = 1
+        self._logger.info("Generate grid dartboard file, shape=" + str(self.adj_mx_dartboard.shape))
+
+    def _load_cache_dartboard(self):
+        self._logger.info('Loading ' + os.path.join(self.cache_file_folder, "adj_dartboard.npz"))
+        cat_data = np.load(os.path.join(self.cache_file_folder, self.dataset + "_adj_dartboard.npz"))
+        self.adj_mx_dartboard = cat_data['adj_mx_dartboard']
+        self._logger.info("adj_mx_dartboard shape : " + str(self.adj_mx_dartboard.shape))
 
     def _calculate_adjacency_matrix(self):
         """
@@ -1048,6 +1072,27 @@ class TrafficStateDataset(AbstractDataset):
         # 把训练集的X和y聚合在一起成为list，测试集验证集同理
         # x_train/y_train: (num_samples, input_length, ..., feature_dim)
         # train_data(list): train_data[i]是一个元组，由x_train[i]和y_train[i]组成
+        if self.use_cde:
+            self.times = torch.linspace(0, self.input_window - 1, self.input_window)
+            x_train_ = torch.tensor(x_train, dtype=torch.float).permute(0, 2, 1, 3)
+            x_val_ = torch.tensor(x_val, dtype=torch.float).permute(0, 2, 1, 3)
+            x_test_ = torch.tensor(x_test, dtype=torch.float).permute(0, 2, 1, 3)
+            x_train_ = torch.cat([self.times.unsqueeze(0).unsqueeze(0).unsqueeze(-1).expand(x_train_.shape[0],
+                                                                                            self.num_nodes,
+                                                                                            self.input_window, 1),
+                                  x_train_], dim=-1)
+            x_val_ = torch.cat([self.times.unsqueeze(0).unsqueeze(0).unsqueeze(-1).expand(x_val_.shape[0],
+                                                                                          self.num_nodes,
+                                                                                          self.input_window, 1),
+                                x_val_], dim=-1)
+            x_test_ = torch.cat([self.times.unsqueeze(0).unsqueeze(0).unsqueeze(-1).expand(x_test_.shape[0],
+                                                                                           self.num_nodes,
+                                                                                           self.input_window, 1),
+                                 x_test_], dim=-1)
+            x_train = np.array(torchcde.hermite_cubic_coefficients_with_backward_differences(x_train_), dtype=np.float)
+            x_val = np.array(torchcde.hermite_cubic_coefficients_with_backward_differences(x_val_), dtype=np.float)
+            x_test = np.array(torchcde.hermite_cubic_coefficients_with_backward_differences(x_test_), dtype=np.float)
+
         train_data = list(zip(x_train, y_train))
         eval_data = list(zip(x_val, y_val))
         test_data = list(zip(x_test, y_test))

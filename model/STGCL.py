@@ -941,11 +941,13 @@ class STGCL(AbstractTrafficStateModel):
 
     def forward(self, batch):
         x = batch["X"].permute(0, 2, 1, 3)
+        B, N, T, C = x.shape
         decoder_start_inputs = x[:, :, -1:, :self.output_dim]
-        decoder_start_zeros = torch.zeros_like(x, device=x.device)[:, :, :-1, :self.output_dim]
+        decoder_start_zeros = torch.zeros(B, N, self.output_window - 1, self.output_dim, device=x.device)
         decoder_input_list = [decoder_start_inputs, decoder_start_zeros]
         decoder_inputs = torch.cat(decoder_input_list, dim=2)
         encoder_output = self.encode(x)
+
         predict_output = self.decode(decoder_inputs, encoder_output)
         return predict_output.permute(0, 2, 1, 3)
 

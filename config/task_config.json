@@ -8,7 +8,9 @@
       "STSGCN",
       "ASTGNN",
       "STGCL",
-      "DCRNN"
+      "DCRNN",
+      "STCDE",
+      "STG_NCDE"
     ],
     "allowed_dataset": [
       "NYCBIKE20140409",
@@ -56,6 +58,21 @@
       "evaluator": "TrafficStateEvaluator"
     },
     "DCRNN": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "STMGN": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "STCDE": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "STG_NCDE": {
       "dataset_class": "TrafficStateGridDataset",
       "executor": "TrafficStateExecutor",
       "evaluator": "TrafficStateEvaluator"

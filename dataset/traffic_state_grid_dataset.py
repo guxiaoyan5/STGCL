@@ -42,6 +42,17 @@ class TrafficStateGridDataset(TrafficStateDataset):
                     adj_dtw=self.adj_dtw,
                 )
                 self._logger.info('Saved at ' + os.path.join(self.cache_file_folder, "adj.npz"))
+        if os.path.exists(os.path.join(self.cache_file_folder, "{}_adj_dartboard.npz".format(self.dataset))):
+            super()._load_cache_dartboard()
+        else:
+            super()._load_dartboard()
+            if self.cache_dataset:
+                ensure_dir(self.cache_file_folder)
+                np.savez_compressed(
+                    os.path.join(self.cache_file_folder, "{}_adj_dartboard.npz".format(self.dataset)),
+                    adj_mx_dartboard=self.adj_mx_dartboard,
+                )
+                self._logger.info('Saved at ' + os.path.join(self.cache_file_folder, "adj_mx_dartboard.npz"))
 
     def _load_dyna(self, filename):
         """
@@ -90,4 +101,4 @@ class TrafficStateGridDataset(TrafficStateDataset):
         return {"scaler": self.scaler, "adj_mx": self.adj_mx, "adj_dtw": self.adj_dtw,
                 "num_nodes": self.num_nodes, "feature_dim": self.feature_dim, "ext_dim": self.ext_dim,
                 "output_dim": self.output_dim, "len_row": self.len_row, "len_column": self.len_column,
-                "num_batches": self.num_batches}
+                "num_batches": self.num_batches, "adj_mx_dartboard": self.adj_mx_dartboard}

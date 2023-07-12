@@ -6,6 +6,8 @@ from model.TGCN import TGCN
 from model.ASTGNN import ASTGNN
 from model.STGCL import STGCL
 from model.DCRNN import DCRNN
+from model.STCDE import STCDE
+from model.STG_NCDE import STG_NCDE
 __all__ = [
     "STGCN",
     "GWNET",
@@ -14,5 +16,7 @@ __all__ = [
     "STSGCN",
     "ASTGNN",
     "STGCL",
-    "DCRNN"
+    "DCRNN",
+    "STCDE",
+    "STG_NCDE"
 ]
