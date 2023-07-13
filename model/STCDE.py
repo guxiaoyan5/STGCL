@@ -1,12 +1,34 @@
+import math
+import warnings
+from logging import getLogger
+
+import torch
+import torchcde
+import torchdiffeq
+from torch import nn
+from torch.nn import functional as F
+
 from base.abstract_traffic_state_model import AbstractTrafficStateModel
 from utils import loss
+
 
 
 class STCDE(AbstractTrafficStateModel):
     def __init__(self, config, data_feature):
         super().__init__(config, data_feature)
+        self._logger = getLogger()
+        self._scaler = self.data_feature.get('scaler')
+        self._init_parameters()
+
+    def _init_parameters(self):
+        for p in self.parameters():
+            if p.dim() > 1:
+                nn.init.xavier_uniform_(p)
+            else:
+                nn.init.uniform_(p)
 
     def forward(self, batch):
+
         return
 
     def calculate_loss(self, batch):

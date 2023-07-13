@@ -104,7 +104,7 @@ class VectorField_g(nn.Module):
         supports = F.softmax(F.relu(torch.mm(self.node_embeddings, self.node_embeddings.transpose(0, 1))), dim=1)
         # laplacian=False
         laplacian = False
-        if laplacian == True:
+        if laplacian:
             # support_set = [torch.eye(node_num).to(supports.device), -supports]
             support_set = [supports, -torch.eye(node_num).to(supports.device)]
             # support_set = [torch.eye(node_num).to(supports.device), -supports]
@@ -151,6 +151,7 @@ class STG_NCDE(AbstractTrafficStateModel):
 
         self._logger = getLogger()
         self._scaler = self.data_feature.get('scaler')
+        self.pred_real_value = config.get("pred_real_value", False)
         self._init_parameters()
 
     def _init_parameters(self):
@@ -179,7 +180,10 @@ class STG_NCDE(AbstractTrafficStateModel):
         y_true = batch['y']
         y_predicted = self.predict(batch)
         y_true = self._scaler.inverse_transform(y_true[..., :self.output_dim])
-        y_predicted = self._scaler.inverse_transform(y_predicted[..., :self.output_dim])
+        if self.pred_real_value:
+            y_predicted = y_predicted[..., :self.output_dim]
+        else:
+            y_predicted = self._scaler.inverse_transform(y_predicted[..., :self.output_dim])
         return loss.masked_mae_torch(y_predicted, y_true, 0)
 
     def predict(self, batch):

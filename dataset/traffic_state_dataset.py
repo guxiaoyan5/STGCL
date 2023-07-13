@@ -1089,9 +1089,10 @@ class TrafficStateDataset(AbstractDataset):
                                                                                            self.num_nodes,
                                                                                            self.input_window, 1),
                                  x_test_], dim=-1)
-            x_train = np.array(torchcde.hermite_cubic_coefficients_with_backward_differences(x_train_), dtype=np.float)
-            x_val = np.array(torchcde.hermite_cubic_coefficients_with_backward_differences(x_val_), dtype=np.float)
-            x_test = np.array(torchcde.hermite_cubic_coefficients_with_backward_differences(x_test_), dtype=np.float)
+            x_train = np.array(torchcde.natural_cubic_spline_coeffs(x_train_, self.times), dtype=np.float)
+            x_val = np.array(torchcde.natural_cubic_spline_coeffs(x_val_, self.times), dtype=np.float)
+            x_test = np.array(torchcde.natural_cubic_spline_coeffs(x_test_, self.times), dtype=np.float)
+            # torchcde.natural_cubic_spline_coeffs(x_train_)
 
         train_data = list(zip(x_train, y_train))
         eval_data = list(zip(x_val, y_val))

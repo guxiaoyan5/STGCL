@@ -1,6 +1,6 @@
 {
   "gpu": true,
-  "gpu_id": 5,
+  "gpu_id": 7,
   "max_epoch": 200,
   "train_loss": "none",
   "epoch": 0,
@@ -34,5 +34,5 @@
   "clip_grad_norm": true,
   "max_grad_norm": 5,
   "use_early_stop": true,
-  "patience": 50
+  "patience": 10
 }

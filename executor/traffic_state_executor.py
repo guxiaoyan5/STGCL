@@ -1,11 +1,12 @@
 import os
 import time
+from functools import partial
+from logging import getLogger
+
 import numpy as np
 import torch
 from ray import tune
-from logging import getLogger
 from torch.utils.tensorboard import SummaryWriter
-from functools import partial
 
 from base.abstract_executor import AbstractExecutor
 from utils import loss
@@ -67,7 +68,7 @@ class TrafficStateExecutor(AbstractExecutor):
         self.saved = self.config.get('saved_model', True)
         self.load_best_epoch = self.config.get('load_best_epoch', True)
         self.hyper_tune = self.config.get('hyper_tune', False)
-
+        self.pred_real_value = self.config.get("pred_real_value", False)
         self.output_dim = self.config.get('output_dim', 1)
         self.optimizer = self._build_optimizer()
         self.lr_scheduler = self._build_lr_scheduler()
@@ -239,6 +240,7 @@ class TrafficStateExecutor(AbstractExecutor):
             else:
                 lf = loss.masked_mae_torch
             return lf(y_predicted, y_true)
+
         return func
 
     def evaluate(self, test_dataloader):
@@ -258,7 +260,10 @@ class TrafficStateExecutor(AbstractExecutor):
                 batch.to_tensor(self.device)
                 output = self.model.predict(batch)
                 y_true = self._scaler.inverse_transform(batch['y'][..., :self.output_dim])
-                y_pred = self._scaler.inverse_transform(output[..., :self.output_dim])
+                if self.pred_real_value:
+                    y_pred = output[..., :self.output_dim]
+                else:
+                    y_pred = self._scaler.inverse_transform(output[..., :self.output_dim])
                 y_truths.append(y_true.cpu().numpy())
                 y_preds.append(y_pred.cpu().numpy())
                 # evaluate_input = {'y_true': y_true, 'y_pred': y_pred}
@@ -315,7 +320,7 @@ class TrafficStateExecutor(AbstractExecutor):
 
             if (epoch_idx % self.log_every) == 0:
                 log_lr = self.optimizer.param_groups[0]['lr']
-                message = 'Epoch [{}/{}] train_loss: {:.4f}, val_loss: {:.4f}, lr: {:.6f}, {:.2f}s'.\
+                message = 'Epoch [{}/{}] train_loss: {:.4f}, val_loss: {:.4f}, lr: {:.6f}, {:.2f}s'. \
                     format(epoch_idx, self.epochs, np.mean(losses), val_loss, log_lr, (end_time - start_time))
                 self._logger.info(message)
 

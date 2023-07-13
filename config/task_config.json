@@ -4,8 +4,6 @@
       "STGCN",
       "GWNET",
       "AGCRN",
-      "TGCN",
-      "STSGCN",
       "ASTGNN",
       "STGCL",
       "DCRNN",
@@ -37,16 +35,6 @@
       "executor": "TrafficStateExecutor",
       "evaluator": "TrafficStateEvaluator"
     },
-    "TGCN": {
-      "dataset_class": "TrafficStateGridDataset",
-      "executor": "TrafficStateExecutor",
-      "evaluator": "TrafficStateEvaluator"
-    },
-    "STSGCN": {
-      "dataset_class": "TrafficStateGridDataset",
-      "executor": "TrafficStateExecutor",
-      "evaluator": "TrafficStateEvaluator"
-    },
     "ASTGNN": {
       "dataset_class": "TrafficStateGridDataset",
       "executor": "TrafficStateExecutor",
@@ -58,11 +46,6 @@
       "evaluator": "TrafficStateEvaluator"
     },
     "DCRNN": {
-      "dataset_class": "TrafficStateGridDataset",
-      "executor": "TrafficStateExecutor",
-      "evaluator": "TrafficStateEvaluator"
-    },
-    "STMGN": {
       "dataset_class": "TrafficStateGridDataset",
       "executor": "TrafficStateExecutor",
       "evaluator": "TrafficStateEvaluator"

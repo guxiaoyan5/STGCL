@@ -2,7 +2,7 @@
   "batch_size": 64,
   "cache_dataset": true,
   "num_workers": 0,
-  "pad_with_last_sample": true,
+  "pad_with_last_sample": false,
   "train_rate": 0.7,
   "eval_rate": 0.1,
   "input_window": 12,
