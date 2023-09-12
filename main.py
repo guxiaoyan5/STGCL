@@ -62,7 +62,7 @@ if __name__ == '__main__':
     parser.add_argument('--task', type=str,
                         default='traffic_state_pred', help='the name of task')
     parser.add_argument('--model', type=str,
-                        default='STGODE', help='the name of model')
+                        default='MEGACRN', help='the name of model')
     parser.add_argument('--dataset', type=str,
                         default='NYCBIKE20140409', help='the name of dataset')
     parser.add_argument('--config_file', type=str,
@@ -71,7 +71,7 @@ if __name__ == '__main__':
                         default=True, help='whether save the trained model')
     parser.add_argument('--train', type=str2bool, default=True,
                         help='whether re-train model if the model is trained before')
-    parser.add_argument('--exp_id', type=str, default=100000, help='id of experiment')
+    parser.add_argument('--exp_id', type=str, default=10000000, help='id of experiment')
     parser.add_argument('--seed', type=int, default=0, help='random seed')
     # 增加其他可选的参数
     add_general_args(parser)

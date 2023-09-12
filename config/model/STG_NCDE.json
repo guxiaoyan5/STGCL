@@ -3,8 +3,8 @@
   "use_cde": true,
   "hidden_dim": 64,
   "hidden_hidden_dim": 64,
-  "num_layers": 3,
-  "cheb_k": 2,
+  "num_layers": 1,
+  "cheb_k": 3,
   "embed_dim": 10,
   "solver": "rk4"
 }

@@ -1,3 +1,4 @@
+#跑完
 cd ../
 #python main.py --task traffic_state_pred --model DCRNN --dataset NYCBIKE202007-202009 --train True --exp_id 6001 --gpu_id "$1" --output_window 12
 #python main.py --task traffic_state_pred --model DCRNN --dataset NYCBIKE202007-202009 --train True --exp_id 6002 --gpu_id "$1" --output_window 18
@@ -19,15 +20,15 @@ cd ../
 #python main.py --task traffic_state_pred --model DCRNN --dataset NYCBIKE20160809 --train True --exp_id 6015 --gpu_id "$1" --output_window 24
 #python main.py --task traffic_state_pred --model DCRNN --dataset NYCBIKE20160809 --train True --exp_id 6016 --gpu_id "$1" --output_window 36
 
-#python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20140112 --train True --exp_id 6017 --gpu_id "$1" --output_window 12
-#python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20140112 --train True --exp_id 6018 --gpu_id "$1" --output_window 18
+python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20140112 --train True --exp_id 6017 --gpu_id "$1" --output_window 12
+python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20140112 --train True --exp_id 6018 --gpu_id "$1" --output_window 18
 python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20140112 --train True --exp_id 6019 --gpu_id "$1" --output_window 24
 python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20140112 --train True --exp_id 6020 --gpu_id "$1" --output_window 36
 #
-python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20150103 --train True --exp_id 6021 --gpu_id "$1" --output_window 12
-python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20150103 --train True --exp_id 6022 --gpu_id "$1" --output_window 18
-python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20150103 --train True --exp_id 6023 --gpu_id "$1" --output_window 24
-python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20150103 --train True --exp_id 6024 --gpu_id "$1" --output_window 36
+#python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20150103 --train True --exp_id 6021 --gpu_id "$1" --output_window 12
+#python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20150103 --train True --exp_id 6022 --gpu_id "$1" --output_window 18
+#python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20150103 --train True --exp_id 6023 --gpu_id "$1" --output_window 24
+#python main.py --task traffic_state_pred --model DCRNN --dataset NYCTaxi20150103 --train True --exp_id 6024 --gpu_id "$1" --output_window 36
 
 #python main.py --task traffic_state_pred --model DCRNN --dataset NYCTAXI20160102 --train True --exp_id 6025 --gpu_id "$1" --output_window 12
 #python main.py --task traffic_state_pred --model DCRNN --dataset NYCTAXI20160102 --train True --exp_id 6026 --gpu_id "$1" --output_window 18

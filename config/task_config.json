@@ -8,7 +8,8 @@
       "STGCL",
       "DCRNN",
       "STCDE",
-      "STG_NCDE"
+      "STG_NCDE",
+      "MEGACRN"
     ],
     "allowed_dataset": [
       "NYCBIKE20140409",
@@ -56,6 +57,11 @@
       "evaluator": "TrafficStateEvaluator"
     },
     "STG_NCDE": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "MEGACRN": {
       "dataset_class": "TrafficStateGridDataset",
       "executor": "TrafficStateExecutor",
       "evaluator": "TrafficStateEvaluator"

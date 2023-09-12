@@ -64,6 +64,16 @@ general_arguments = {
         "type": "int",
         "default": None,
         "help": ""
+    },
+    "multiCore": {
+        "type": "bool",
+        "default": None,
+        "help": ""
+    },
+    "scale": {
+        "type": "bool",
+        "default": None,
+        "help": ""
     }
 }
 
