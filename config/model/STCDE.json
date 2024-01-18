@@ -1,9 +1,0 @@
-{
-  "use_cde": true,
-  "hidden_dim": 64,
-  "hidden_hidden_dim": 64,
-  "num_layers": 3,
-  "n_head": 4,
-  "embed_dim": 10,
-  "solver": "rk4"
-}

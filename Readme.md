@@ -1,30 +1,15 @@
-解决问题：局部时空相关性和全局时空相关性
+# 2018-2020
 
-大多数现有的 MGNN 研究只考虑节点的空间相似性，例如距离相似性和邻域相关性。先前的研究表明，距离相似度不足以表示具有时空属性的节点之间的相关性。Wu等人提出了一种自适应邻接矩阵，通过计算节点的可学习嵌入的内积，以端到端的方式直接从每个节点的历史记录中发现隐藏的空间依赖性。然而，这些工作没有很好地利用编码为邻接矩阵的现有先验知识，这可能会导致遗漏重要信息。
+Adaptive Graph Convolutional Recurrent Network for Traffic Forecasting
 
-使用不同的图模型具有挑战性。对于基于多图的问题，图模型与不同尺度的不同；因此，简单地使用加权和或其他平均方法合并它们是不合适的。此外，如何对齐不同图中的每个节点都具有挑战性，因为不同图中的节点与不同的时空信息相关联。
+Attention Based Spatial-Temporal Graph Convolutional Networks for Traffic Flow Forecasting
 
-不考虑长期的时空依赖性。通常，MGNN 倾向于通过从观察窗口和预测范围内的数据投影映射来学习时空相关性。然而，由于数据源的限制，现有的图模型，如距离图或邻居图只表示静态空间信息，无法捕获长期的时空依赖性。
+Diffusion Convolutional Recurrent Neural Network: Data-Driven Traffic Forecasting
 
-**邻居图A [0,1]**  模糊认知图
+Graph Wavenet for Deep Spatial-Temporal Graph Modeling
 
-语义图B [0~1]
+Spatio-Temporal Graph Convolutional Networks: A Deep Learning Framework for Traffic Forecasting
 
-空间语义图 A * B * A^T [0~1]
+# 2023
 
-已完成多核时间注意力，多图融合卷积，多图
-
-增加了多项式图卷积、多核卷积、多阶邻居图。
-
-
-引入节点聚类？
-
-引入自监督学习或图对比学习限制图融合？
-
-引入神经控制微分方程，解决不确定性量化以避免不合理的预测值？
-
-考虑周期性，引入存储信息？
-
-记忆网络
-
-怎么融合！！！！
+MegaCRN: Meta-Graph Convolutional Recurrent Network for Spatio-Temporal Modeling
