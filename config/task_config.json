@@ -7,9 +7,8 @@
       "ASTGNN",
       "STGCL",
       "DCRNN",
-      "STCDE",
-      "STG_NCDE",
-      "MEGACRN"
+      "MEGACRN",
+      "EvoNN2"
     ],
     "allowed_dataset": [
       "NYCBIKE20140409",
@@ -51,17 +50,12 @@
       "executor": "TrafficStateExecutor",
       "evaluator": "TrafficStateEvaluator"
     },
-    "STCDE": {
-      "dataset_class": "TrafficStateGridDataset",
-      "executor": "TrafficStateExecutor",
-      "evaluator": "TrafficStateEvaluator"
-    },
-    "STG_NCDE": {
-      "dataset_class": "TrafficStateGridDataset",
-      "executor": "TrafficStateExecutor",
-      "evaluator": "TrafficStateEvaluator"
-    },
     "MEGACRN": {
+      "dataset_class": "TrafficStateGridDataset",
+      "executor": "TrafficStateExecutor",
+      "evaluator": "TrafficStateEvaluator"
+    },
+    "EvoNN2": {
       "dataset_class": "TrafficStateGridDataset",
       "executor": "TrafficStateExecutor",
       "evaluator": "TrafficStateEvaluator"
