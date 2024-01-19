@@ -5,10 +5,10 @@ cd ../
 #python main.py --task traffic_state_pred --model AGCRN --dataset NYCBIKE202007-202009 --train True --exp_id 3003 --gpu_id "$1" --output_window 24
 #python main.py --task traffic_state_pred --model AGCRN --dataset NYCBIKE202007-202009 --train True --exp_id 3004 --gpu_id "$1" --output_window 36
 
-#python main.py --task traffic_state_pred --model AGCRN --dataset NYCBIKE20140409 --train True --exp_id 3005 --gpu_id "$1" --output_window 12
-#python main.py --task traffic_state_pred --model AGCRN --dataset NYCBIKE20140409 --train True --exp_id 3006 --gpu_id "$1" --output_window 18
-#python main.py --task traffic_state_pred --model AGCRN --dataset NYCBIKE20140409 --train True --exp_id 3007 --gpu_id "$1" --output_window 24
-#python main.py --task traffic_state_pred --model AGCRN --dataset NYCBIKE20140409 --train True --exp_id 3008 --gpu_id "$1" --output_window 36
+python main.py --task traffic_state_pred --model AGCRN --dataset NYCBIKE20140409 --train True --exp_id 3005 --gpu_id "$1" --output_window 12
+python main.py --task traffic_state_pred --model AGCRN --dataset NYCBIKE20140409 --train True --exp_id 3006 --gpu_id "$1" --output_window 18
+python main.py --task traffic_state_pred --model AGCRN --dataset NYCBIKE20140409 --train True --exp_id 3007 --gpu_id "$1" --output_window 24
+python main.py --task traffic_state_pred --model AGCRN --dataset NYCBIKE20140409 --train True --exp_id 3008 --gpu_id "$1" --output_window 36
 
 #python main.py --task traffic_state_pred --model AGCRN --dataset NYCBike20160708 --train True --exp_id 3009 --gpu_id "$1" --output_window 12
 #python main.py --task traffic_state_pred --model AGCRN --dataset NYCBike20160708 --train True --exp_id 3010 --gpu_id "$1" --output_window 18

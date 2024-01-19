@@ -183,7 +183,7 @@ class MEGACRN(AbstractTrafficStateModel):
     def forward(self, batch):
         x = batch['X']
         labels = batch['y'][..., :self.output_dim]
-        y_cov = batch['X'][..., self.output_dim:]
+        y_cov = batch['y'][..., self.output_dim:]
         node_embeddings1 = torch.matmul(self.memory['We1'], self.memory['Memory'])
         node_embeddings2 = torch.matmul(self.memory['We2'], self.memory['Memory'])
         g1 = F.softmax(F.relu(torch.mm(node_embeddings1, node_embeddings2.T)), dim=-1)
