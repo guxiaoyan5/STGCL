@@ -10,6 +10,12 @@ Graph Wavenet for Deep Spatial-Temporal Graph Modeling
 
 Spatio-Temporal Graph Convolutional Networks: A Deep Learning Framework for Traffic Forecasting
 
+# 2021
+Coupled layer-wise convolutional network for transportation demand prediction
+
+
+# 2022
+
 # 2023
 
 MegaCRN: Meta-Graph Convolutional Recurrent Network for Spatio-Temporal Modeling

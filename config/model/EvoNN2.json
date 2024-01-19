@@ -1,0 +1,8 @@
+{
+  "hidden_size": 64,
+  "n_dim": 50,
+  "n_supports": 1,
+  "k_hop": 3,
+  "n_rnn_layers": 1,
+  "n_gconv_layers": 3
+}
