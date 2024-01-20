@@ -65,6 +65,11 @@ general_arguments = {
         "default": None,
         "help": ""
     },
+    "input_window": {
+        "type": "int",
+        "default": None,
+        "help": ""
+    },
     "multiCore": {
         "type": "bool",
         "default": None,

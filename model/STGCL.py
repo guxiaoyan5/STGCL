@@ -861,7 +861,7 @@ class STGCL(AbstractTrafficStateModel):
         self.dropout = config.get("dropout", 0)
         self.kernel_size = config.get("kernel_size", 3)
         self.kernel_sizes = config.get("kernel_sizes", [3, 5, 7])
-        self.multiCore = config.get("multiCore", False)
+        self.multiCore = config.get("multiCore", True)
         self.scale = config.get("scale", True)
         self.layer_num = config.get("num_layers", 1)
         # self.num_layers = config.get("num_layers", 1)

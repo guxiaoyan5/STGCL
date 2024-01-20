@@ -9,6 +9,6 @@
   "d_model": 64,
   "nb_head": 4,
   "max_len": 5000,
-  "multiCore": false,
+  "multiCore": true,
   "scale": true
 }
