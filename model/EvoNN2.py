@@ -222,7 +222,14 @@ class EvoNN2(AbstractTrafficStateModel):
 
         self._logger = getLogger()
         self._scaler = self.data_feature.get('scaler')
+        self._init_parameters()
 
+    def _init_parameters(self):
+        for p in self.parameters():
+            if p.dim() > 1:
+                nn.init.xavier_uniform_(p)
+            else:
+                nn.init.uniform_(p)
     def forward(self, batch):
         inputs = batch["X"]
         graph = list()
