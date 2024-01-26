@@ -19,3 +19,12 @@ Coupled layer-wise convolutional network for transportation demand prediction
 # 2023
 
 MegaCRN: Meta-Graph Convolutional Recurrent Network for Spatio-Temporal Modeling
+
+git config --global http.proxy 127.0.0.1:10809
+git config --global https.proxy 127.0.0.1:10809
+git add .
+git commit -m "update"
+git pull
+git push
+git config --global --unset http.proxy
+git config --global --unset https.proxy

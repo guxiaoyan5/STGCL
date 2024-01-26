@@ -79,6 +79,26 @@ general_arguments = {
         "type": "bool",
         "default": None,
         "help": ""
+    },
+    "kernel_sizes": {
+        "type": "list",
+        "default": None,
+        "help": ""
+    },
+    "num_layers": {
+        "type": "int",
+        "default": None,
+        "help": ""
+    },
+    "d_model": {
+        "type": "int",
+        "default": None,
+        "help": ""
+    },
+    "nb_head": {
+        "type": "int",
+        "default": None,
+        "help": ""
     }
 }
 
